@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="27339e5b-5d6f-44cd-81c7-5f9b456a02b4" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="5e9f2a6e-c8de-497b-bdc3-8c8be339e6e4" />
+	<flow name="filedemoFlow" doc:id="09e59557-d1a5-4516-809d-532bb156b6ca" >
+		<http:listener doc:name="Listener" doc:id="4beb9477-e68f-4287-8bea-105557e10da8" config-ref="HTTP_Listener_config" path="/Readdata"/>
+		<file:read doc:name="Read-file" doc:id="cb42e48c-f03e-4b0f-8100-031ab1ffea21" config-ref="File_Config" path="C:\Users\new\Desktop\file\input\input-data-file.txt"/>
+		<ee:transform doc:name="Transform Message" doc:id="0d9cecd8-dddd-41d7-8345-681916ee7495" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output text/plain
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<file:write doc:name="Write" doc:id="56c5226f-281d-4d55-9f4f-d2232a780a4b" config-ref="File_Config" path="C:\Users\new\Desktop\file\input\output-data-file.txt"/>
+	</flow>
+</mule>
