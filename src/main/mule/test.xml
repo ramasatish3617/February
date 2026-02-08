@@ -32,5 +32,6 @@ output application/java
 }]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="79befd49-a201-4358-9734-ab2ea7e9691b" message='#["End of the flow"]'/>
 	</flow>
 </mule>
